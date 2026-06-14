@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vales</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI,sans-serif;
+background:linear-gradient(135deg,#aa88ec,#c2b2ff);
+text-align:center;
+}
+
+.topbar{
+background:white;
+padding:10px;
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.topbar button{
+padding:8px 15px;
+border:none;
+border-radius:10px;
+background:#aa88ec;
+color:white;
+cursor:pointer;
+}
+
+.container{
+margin-top:40px;
+}
+
+.ticket{
+background:white;
+width:250px;
+margin:15px auto;
+padding:20px;
+border-radius:15px;
+cursor:pointer;
+font-size:18px;
+transition:transform .2s, background .3s;
+}
+
+.ticket:hover{
+transform:scale(1.05);
+}
+
+.usado{
+background:#ccc;
+cursor:not-allowed;
+text-decoration:line-through;
+}
+
+#modalVale{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+justify-content:center;
+align-items:center;
+}
+
+.modal-contenido{
+background:white;
+padding:20px;
+border-radius:15px;
+width:300px;
+}
+
+.modal-contenido input{
+width:100%;
+padding:10px;
+margin-top:10px;
+box-sizing:border-box;
+}
+
+.modal-contenido button{
+margin-top:15px;
+padding:10px 15px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:#aa88ec;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+
+<button onclick="location.href='app.html'">Inicio</button>
+<button onclick="location.href='cartas.html'">Cartas</button>
+<button onclick="location.href='logros.html'">Logros</button>
+<button onclick="location.href='vales.html'">Vales</button>
+<button onclick="location.href='regalo.html'">Regalo</button>
+<button onclick="location.href='salir.html'">Salir</button>
+
+</div>
+
+<div class="container">
+
+<h2>🎟️ Vales</h2>
+
+<div class="ticket" onclick="usarVale(this,'Ir al cine')">
+🎬 Ir al cine
+</div>
+
+<div class="ticket" onclick="usarVale(this,'Ir a comer')">
+🍽️ Ir a comer
+</div>
+
+<div class="ticket" onclick="usarVale(this,'Hacer lo que quieras por una hora')">
+🤗 Hacer lo que quieras por una hora
+</div>
+
+<div class="ticket" onclick="usarVale(this,'Chisme todo el día')">
+🗣️ Chisme todo el día
+</div>
+
+<div class="ticket" onclick="usarVale(this,'Ir por un helado')">
+🍦 Ir por un helado
+</div>
+
+</div>
+
+<!-- Modal -->
+
+<div id="modalVale">
+
+<div class="modal-contenido">
+
+<h3>Selecciona fecha y hora</h3>
+
+<input type="date" id="fechaVale">
+
+<input type="time" id="horaVale">
+
+<button onclick="confirmarVale()">Enviar</button>
+<button onclick="cerrarModal()">Cancelar</button>
+
+</div>
+
+</div>
+
+<script>
+
+let valeActual = "";
+let elementoActual = null;
+
+window.onload = function(){
+
+document.querySelectorAll(".ticket").forEach(ticket => {
+
+const vale = ticket.textContent.trim();
+
+if(localStorage.getItem("vale_" + vale) === "usado"){
+
+ticket.classList.add("usado");
+ticket.innerHTML = "✔ Vale usado<br>" + vale;
+
+}
+
+});
+
+};
+
+function usarVale(elemento, vale){
+
+if(elemento.classList.contains("usado")){
+alert("Este vale ya fue utilizado");
+return;
+}
+
+valeActual = vale;
+elementoActual = elemento;
+
+document.getElementById("fechaVale").value = "";
+document.getElementById("horaVale").value = "";
+
+document.getElementById("modalVale").style.display = "flex";
+
+}
+
+function cerrarModal(){
+
+document.getElementById("modalVale").style.display = "none";
+
+}
+
+function confirmarVale(){
+
+const fecha = document.getElementById("fechaVale").value;
+const hora = document.getElementById("horaVale").value;
+
+if(!fecha || !hora){
+
+alert("Selecciona una fecha y una hora");
+return;
+
+}
+
+localStorage.setItem("vale_" + valeActual,"usado");
+
+elementoActual.classList.add("usado");
+elementoActual.innerHTML = "✔ Vale usado<br>" + valeActual;
+
+let numero = "525610910911";
+
+let mensaje =
+`Quiero usar el vale: ${valeActual}
+
+📅 Fecha: ${fecha}
+🕒 Hora: ${hora}`;
+
+let url =
+`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+window.open(url,"_blank");
+
+cerrarModal();
+
+}
+
+</script>
+
+</body>
+</html>
