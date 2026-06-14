@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cartas</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI,sans-serif;
+background:linear-gradient(135deg,#aa88ec,#c2b2ff);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+height:100vh;
+}
+
+h1{
+color:white;
+}
+
+.cartas{
+display:grid;
+grid-template-columns:repeat(3,150px);
+gap:20px;
+margin-top:30px;
+}
+
+.carta{
+width:150px;
+height:200px;
+background:white;
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+font-weight:bold;
+transition:transform .2s;
+}
+
+.carta:hover{
+transform:scale(1.05);
+}
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.modalContenido{
+background:white;
+padding:30px;
+border-radius:15px;
+max-width:500px;
+text-align:center;
+}
+
+button{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#aa88ec;
+color:white;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Cartas</h1>
+
+<div class="cartas">
+
+<div class="carta" onclick="abrirCarta(1)">
+Triste
+</div>
+
+<div class="carta" onclick="abrirCarta(2)">
+Enojada
+</div>
+
+<div class="carta" onclick="abrirCarta(3)">
+Estresada
+</div>
+
+<div class="carta" onclick="abrirCarta(4)">
+Feliz
+</div>
+
+<div class="carta" onclick="abrirCarta(5)">
+Aburrida
+</div>
+
+</div>
+
+<div class="modal" id="modalCarta">
+
+<div class="modalContenido">
+
+<p id="textoCarta"></p>
+
+<button onclick="cerrarCarta()">Cerrar</button>
+
+</div>
+
+</div>
+
+<script>
+
+function abrirCarta(numero){
+
+const textos = {
+
+1:"Esta bien que te sientas triste y que no te sientas bien, pero espero que alguna de mis estupidices te ayuden a alegrarte el día",
+
+2:"Si estas enojada, porfavor que no sea conmigo jajaja, pero si es conmigo espero que me digas pa hablarlo y solucionarlo",
+
+3:"Tu puedes, si te puedo ayudar en algo, por favor avisame, aunque sea solo para distraerte un ratito",
+
+4:"Ojalá lo disfrutes y me cuentes el chisme jajajaja",
+
+5:"Siempre que pueda te voy a reventar tu telefono con muchos reels, y si si se puede vamos a jugar billar"
+
+};
+
+document.getElementById("textoCarta").innerText = textos[numero];
+document.getElementById("modalCarta").style.display = "flex";
+
+}
+
+function cerrarCarta(){
+
+document.getElementById("modalCarta").style.display = "none";
+
+}
+
+</script>
+
+</body>
+</html>
