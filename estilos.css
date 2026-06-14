@@ -1,0 +1,151 @@
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Segoe UI,sans-serif;
+background:linear-gradient(135deg,#aa88ec,#c2b2e3);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:10px;
+}
+
+/* contenedor */
+
+.container{
+background:rgba(0,0,0,0.55);
+padding:20px;
+border-radius:18px;
+color:white;
+width:100%;
+max-width:380px;
+text-align:center;
+}
+
+/* botones */
+
+button{
+padding:14px;
+border:none;
+border-radius:12px;
+background:#ff6f91;
+color:white;
+cursor:pointer;
+margin:8px 0;
+font-size:16px;
+width:100%;
+}
+
+button:hover{
+background:#ff3e6c;
+}
+
+/* inputs */
+
+input{
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:10px;
+width:100%;
+font-size:16px;
+}
+
+/* barra */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:#ff6f91;
+display:flex;
+justify-content:space-around;
+padding:10px;
+z-index:999;
+}
+
+.topbar button{
+background:white;
+color:#ff6f91;
+font-weight:bold;
+width:auto;
+padding:10px;
+}
+
+/* logros */
+
+.logros-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.logros img{
+width:70px;
+}
+
+.logros p{
+font-size:11px;
+color:black;
+}
+
+/* tickets */
+
+.ticket{
+background:#fff;
+color:#000;
+padding:15px;
+margin:10px auto;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* regalo */
+
+.gift-box{
+position:relative;
+width:150px;
+height:150px;
+margin:30px auto;
+cursor:pointer;
+}
+
+.gift-body{
+width:150px;
+height:100px;
+background:#ff6f91;
+position:absolute;
+bottom:0;
+border-radius:6px;
+}
+
+.gift-lid{
+width:150px;
+height:40px;
+background:#ff3e6c;
+position:absolute;
+top:0;
+border-radius:6px;
+transition:.5s;
+}
+
+.gift-box.open .gift-lid{
+transform:translateY(-60px) rotate(-10deg);
+}
+
+.gift-message{
+position:absolute;
+top:-40px;
+left:50%;
+transform:translateX(-50%);
+background:white;
+padding:8px 12px;
+border-radius:6px;
+color:black;
+font-weight:bold;
+}
