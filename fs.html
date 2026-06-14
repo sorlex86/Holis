@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cartelera del Mes</title>
+<script src="script.js"></script>
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI,sans-serif;
+background:linear-gradient(135deg,#aa88ec,#c2b2ff);
+}
+
+.topbar{
+background:white;
+padding:10px;
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.topbar button{
+padding:8px 15px;
+border:none;
+border-radius:10px;
+background:#aa88ec;
+color:white;
+cursor:pointer;
+}
+
+h1{
+text-align:center;
+color:white;
+margin:30px 0;
+}
+
+.cartelera{
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:white;
+border-radius:15px;
+padding:15px;
+margin-bottom:20px;
+display:flex;
+gap:20px;
+align-items:center;
+box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
+
+.poster{
+width:120px;
+height:180px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.info{
+flex:1;
+}
+
+.info h3{
+margin:0 0 10px;
+}
+
+.rating{
+text-align:center;
+}
+
+.star{
+font-size:30px;
+cursor:pointer;
+color:#ccc;
+}
+
+.star.active{
+color:gold;
+}
+
+.btnEnviar{
+display:none;
+margin-top:10px;
+padding:8px 15px;
+border:none;
+border-radius:10px;
+background:#aa88ec;
+color:white;
+cursor:pointer;
+}
+
+@media(max-width:700px){
+
+.card{
+flex-direction:column;
+text-align:center;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+
+<button onclick="location.href='app.html'">Inicio</button>
+<button onclick="location.href='cartas.html'">Cartas</button>
+<button onclick="location.href='logros.html'">Logros</button>
+<button onclick="location.href='vales.html'">Vales</button>
+<button onclick="location.href='fs.html'">F/S</button>
+<button onclick="location.href='regalo.html'">Regalo</button>
+
+</div>
+
+<h1>🎬 Cartelera del Mes</h1>
+
+<div id="cartelera" class="cartelera"></div>
+
+<script>
+
+const cartelera = [
+
+{
+titulo:"Interstellar",
+duracion:"2h 49m",
+plataforma:"Max",
+imagen:"imagenes/interstellar.jpg"
+},
+
+{
+titulo:"Dark",
+duracion:"3 temporadas",
+plataforma:"Netflix",
+imagen:"imagenes/dark.jpg"
+},
+
+{
+titulo:"Breaking Bad",
+duracion:"5 temporadas",
+plataforma:"Netflix",
+imagen:"imagenes/breakingbad.jpg"
+},
+
+{
+titulo:"The Last of Us",
+duracion:"1 temporada",
+plataforma:"Max",
+imagen:"imagenes/lastofus.jpg"
+},
+
+{
+titulo:"Shrek",
+duracion:"1h 30m",
+plataforma:"Netflix",
+imagen:"imagenes/shrek.jpg"
+},
+
+{
+titulo:"Arcane",
+duracion:"2 temporadas",
+plataforma:"Netflix",
+imagen:"imagenes/arcane.jpg"
+},
+
+{
+titulo:"Your Name",
+duracion:"1h 46m",
+plataforma:"Crunchyroll",
+imagen:"imagenes/yourname.jpg"
+},
+
+{
+titulo:"Dune",
+duracion:"2h 35m",
+plataforma:"Max",
+imagen:"imagenes/dune.jpg"
+},
+
+{
+titulo:"Attack on Titan",
+duracion:"4 temporadas",
+plataforma:"Crunchyroll",
+imagen:"imagenes/aot.jpg"
+},
+
+{
+titulo:"The Office",
+duracion:"9 temporadas",
+plataforma:"Prime Video",
+imagen:"imagenes/office.jpg"
+}
+
+];
+
+const contenedor = document.getElementById("cartelera");
+
+cartelera.forEach((item,index)=>{
+
+contenedor.innerHTML += `
+
+<div class="card">
+
+<img src="${item.imagen}" class="poster">
+
+<div class="info">
+
+<h3>${item.titulo}</h3>
+
+<p><strong>Duración:</strong> ${item.duracion}</p>
+
+<p><strong>Disponible en:</strong> ${item.plataforma}</p>
+
+</div>
+
+<div class="rating">
+
+<div class="stars" id="stars${index}">
+
+<span class="star" onclick="calificar(${index},1)">★</span>
+<span class="star" onclick="calificar(${index},2)">★</span>
+<span class="star" onclick="calificar(${index},3)">★</span>
+<span class="star" onclick="calificar(${index},4)">★</span>
+<span class="star" onclick="calificar(${index},5)">★</span>
+
+</div>
+
+<button
+id="btn${index}"
+class="btnEnviar"
+onclick="enviarCalificacion('${item.titulo}',${index})">
+
+Enviar
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+function calificar(indice,valor){
+
+const estrellas =
+document.querySelectorAll(`#stars${indice} .star`);
+
+estrellas.forEach((estrella,posicion)=>{
+
+if(posicion < valor){
+estrella.classList.add("active");
+}else{
+estrella.classList.remove("active");
+}
+
+});
+
+document.getElementById(`stars${indice}`)
+.dataset.calificacion = valor;
+
+document.getElementById(`btn${indice}`)
+.style.display = "inline-block";
+
+}
+
+function enviarCalificacion(titulo,indice){
+
+const calificacion =
+document.getElementById(`stars${indice}`)
+.dataset.calificacion;
+
+let numero = "525610910911";
+
+let mensaje =
+`🎬 Cartelera del Mes
+
+Título: ${titulo}
+
+⭐ Calificación: ${calificacion}/5`;
+
+let url =
+`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+window.open(url,"_blank");
+
+}
+
+</script>
+
+</body>
+
+</html>
